@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="Raffles.UI.WPF.Views.ManageRaffles"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:Raffles.ViewModels.Locator;assembly=Raffles.ViewModels"
+             xmlns:t="clr-namespace:Raffles.UI.WPF.Templates"
+             mc:Ignorable="d" 
+             DataContext="{Binding Source={x:Static vm:ViewModelLocator.ManageRafflesViewModel}}">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <ComboBox Margin="20,0,0,0" Height="20" Width="226" ItemsSource="{Binding Raffles}"
+                      SelectedItem="{Binding SelectedRaffle, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name"/>
+            <Button Content="Save" Margin="5,10,0,10" Width="75" Height="20" Command="{Binding SaveChanges}"/>
+            <Button Content="Cancel" Margin="5,10,0,10" Width="75" Height="20" Command="{Binding CancelChanges}"/>
+            <Button Content="New" Margin="5,10,0,10" Width="75" Height="20" Command="{Binding NewEntry}"/>
+            <Button Content="Delete" Margin="5,10,20,10" Width="75" Height="20" Command="{Binding DeleteEntry}"/>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="20,0,20,0">
+            <StackPanel Margin="0,0,0,0">
+                <Label Content="Raffle Name" />
+                <TextBox HorizontalAlignment="Left" Height="23" Width="263" Text="{Binding SelectedRaffle.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="Address" />
+                <TextBox HorizontalAlignment="Left" Height="23" Width="263" 
+                         Text="{Binding SelectedRaffle.Location.Address1, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Width="263"
+                         Text="{Binding SelectedRaffle.Location.Address2, UpdateSourceTrigger=PropertyChanged}"/>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="City" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" VerticalAlignment="Top" />
+                    <Label Content="State" HorizontalAlignment="Left" Height="23" Margin="127,0,0,0" VerticalAlignment="Top" />
+                    <Label Content="Zip" HorizontalAlignment="Left" Height="23" Margin="8,0,0,0" VerticalAlignment="Top" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox HorizontalAlignment="Left" Height="28" Margin="0,0,0,20" TextWrapping="Wrap" VerticalAlignment="Top" Width="153"
+                             Text="{Binding SelectedRaffle.Location.City, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox HorizontalAlignment="Left" Height="28" Margin="5,0,0,20" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"
+                             Text="{Binding SelectedRaffle.Location.State, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox HorizontalAlignment="Left" Height="28" Margin="5,0,0,20" TextWrapping="Wrap" VerticalAlignment="Top" Width="60"
+                             Text="{Binding SelectedRaffle.Location.Zip, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Margin="23,0,0,0">
+                <Label Content="Email" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" VerticalAlignment="Top" />
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="263"
+                         Text="{Binding SelectedRaffle.Location.Email, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="Phone" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="263"
+                         Text="{Binding SelectedRaffle.Location.Phone, UpdateSourceTrigger=PropertyChanged}"/>
+                <CheckBox Content="Allow Text Messages" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"
+                          IsChecked="{Binding SelectedRaffle.Location.CanText, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+        </StackPanel>
+        <ListBox DockPanel.Dock="Left" Height="200" Margin="20,0,0,0"  VerticalAlignment="Top" Width="263" 
+                 ItemsSource="{Binding Path=Items}" ItemTemplate="{StaticResource ItemList}"/>
+        <ListBox DockPanel.Dock="Left" Height="200"  VerticalAlignment="Top" Width="263"
+                 ItemsSource="{Binding Path=Participants}" ItemTemplate="{StaticResource ParticipantList}"/>
+
+    </DockPanel>
+</UserControl>

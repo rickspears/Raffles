@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="Raffles.UI.WPF.Views.ManageParticipants"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:Raffles.ViewModels.Locator;assembly=Raffles.ViewModels"
+             mc:Ignorable="d" 
+             DataContext="{Binding Source={x:Static vm:ViewModelLocator.ManageParticipantsViewModel}}">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <ComboBox Margin="20,0,0,0" Height="20" Width="226" ItemsSource="{Binding Participants}"
+                      SelectedItem="{Binding SelectedParticipant}" DisplayMemberPath="Name" />
+            <Button Content="Save" Margin="5,10,0,10" Width="75" Height="20" Command="{Binding SaveChanges}"/>
+            <Button Content="Cancel" Margin="5,10,0,10" Width="75" Height="20" Command="{Binding CancelChanges}"/>
+            <Button Content="New" Margin="5,10,0,10" Width="75" Height="20" Command="{Binding NewEntry}"/>
+            <Button Content="Delete" Margin="5,10,20,10" Width="75" Height="20" Command="{Binding DeleteEntry}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="20,0,20,0">
+            <StackPanel Margin="0,0,0,0">
+                <Label Content="Name" />
+                <TextBox HorizontalAlignment="Left" Height="23" Width="263"
+                         Text="{Binding SelectedParticipant.Name, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Content="Address" />
+                <TextBox HorizontalAlignment="Left" Height="23" Width="263"
+                         Text="{Binding SelectedParticipant.Contact.Address1, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox HorizontalAlignment="Left" Height="23" Width="263"
+                         Text="{Binding SelectedParticipant.Contact.Address2, UpdateSourceTrigger=PropertyChanged}" />
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="City" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" VerticalAlignment="Top" />
+                    <Label Content="State" HorizontalAlignment="Left" Height="23" Margin="127,0,0,0" VerticalAlignment="Top" />
+                    <Label Content="Zip" HorizontalAlignment="Left" Height="23" Margin="8,0,0,0" VerticalAlignment="Top" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0">
+                    <TextBox HorizontalAlignment="Left" Height="28" Margin="0,0,0,20" TextWrapping="Wrap" VerticalAlignment="Top" Width="153"
+                             Text="{Binding SelectedParticipant.Contact.City, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox HorizontalAlignment="Left" Height="28" Margin="5,0,0,20" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"
+                             Text="{Binding SelectedParticipant.Contact.State, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox HorizontalAlignment="Left" Height="28" Margin="5,0,0,20" TextWrapping="Wrap" VerticalAlignment="Top" Width="60"
+                             Text="{Binding SelectedParticipant.Contact.Zip, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Margin="23,0,0,0">
+                <Label Content="Email" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" VerticalAlignment="Top" />
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="263"
+                             Text="{Binding SelectedParticipant.Contact.Email, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="Phone" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="263"
+                             Text="{Binding SelectedParticipant.Contact.Phone, UpdateSourceTrigger=PropertyChanged}"/>
+                <CheckBox Content="Enable Text Message Notifications" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"
+                          IsChecked="{Binding SelectedParticipant.Contact.CanText, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</UserControl>
