@@ -10,5 +10,6 @@
         public ContactDetails Contact { get; set; }
 
         public ICollection<RaffleParticipant> RaffleParticipants { get; set; }
+        public ICollection<Winner> Winners { get; set; }
     }
 }

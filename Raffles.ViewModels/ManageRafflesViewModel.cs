@@ -18,6 +18,7 @@
                 context.Raffles
                     .Include(r => r.RaffleItems)
                     .Include(r => r.RaffleParticipants)
+                    .Include(r => r.Winners)
                     .Load();
                 context.Items
                     .Include(i => i.RaffleItems)
@@ -102,97 +103,81 @@
         }
         private void UpdateRaffle() {
             using (AppContext context = new AppContext()) {
-                context.Items
-                    .Include(i => i.RaffleItems)
-                    .Load();
+                context.Items.Include(i => i.RaffleItems).Load();
+                context.Participants.Include(i => i.RaffleParticipants).Load();
                 var raffle = context.Raffles.Include(r => r.RaffleItems)
                                             .Include(r=>r.RaffleParticipants)
                                             .First(r => r.RaffleId == SelectedRaffle.RaffleId);
-                context.Entry(raffle).CurrentValues.SetValues(SelectedRaffle);
-                context.SaveChanges();
 
-                UpdateRaffleItems();
-                UpdateRaffleParticipants();
+                context.Entry(raffle).CurrentValues.SetValues(SelectedRaffle);               
+                UpdateRaffleItems(context, raffle);
+                UpdateRaffleParticipants(context, raffle);
+
+                context.SaveChanges();
             }
         }
 
-        private void UpdateRaffleItems() {
-            using (AppContext context = new AppContext()) {
-                context.Items.Include(i => i.RaffleItems).Load();
-                var raffle = context.Raffles.Include(r => r.RaffleItems)
-                                            .Include(r => r.RaffleParticipants)
-                                            .First(r => r.RaffleId == SelectedRaffle.RaffleId);
-
-                foreach (var dbRaffleItem in raffle.RaffleItems.ToList())
-                    if (Items.Any(i => !i.IsIncluded && i.ItemId == dbRaffleItem.ItemId)) {
-                        var temp = SelectedRaffle.RaffleItems.FirstOrDefault(t => t.ItemId == dbRaffleItem.ItemId);
-                        SelectedRaffle.RaffleItems.Remove(temp);
-                        context.RaffleItems.Remove(dbRaffleItem);
-                    }
-
-                foreach (var checkedItem in Items) {
-                    if (checkedItem.IsIncluded) {
-                        var dbRaffleItem = raffle.RaffleItems.FirstOrDefault(
-                                                i => i.ItemId == checkedItem.ItemId
-                                                && i.RaffleId == SelectedRaffle.RaffleId);
-                        if (dbRaffleItem != null) {
-                            context.Entry(dbRaffleItem).CurrentValues.SetValues(checkedItem);
-                            SelectedRaffle.RaffleItems.First(t => t.ItemId == dbRaffleItem.ItemId).ItemCount = dbRaffleItem.ItemCount;                            
-                        }
-                        else {
-                            RaffleItem raffleItem = new RaffleItem() {
-                                RaffleId = SelectedRaffle.RaffleId,
-                                Raffle = raffle,
-                                ItemId = checkedItem.ItemId,
-                                Item = context.Items.FirstOrDefault(i => i.ItemId == checkedItem.ItemId),
-                                ItemCount = checkedItem.ItemCount
-                            };
-                            SelectedRaffle.RaffleItems.Add(raffleItem);
-                            raffle.RaffleItems.Add(raffleItem);
-                        }
-                    }
+        private void UpdateRaffleItems(AppContext context, Raffle raffle) {
+            foreach (var dbRaffleItem in raffle.RaffleItems.ToList())
+                if (Items.Any(i => !i.IsIncluded && i.ItemId == dbRaffleItem.ItemId)) {
+                    var temp = SelectedRaffle.RaffleItems.FirstOrDefault(t => t.ItemId == dbRaffleItem.ItemId);
+                    SelectedRaffle.RaffleItems.Remove(temp);
+                    context.RaffleItems.Remove(dbRaffleItem);
                 }
-                context.SaveChanges();                
+
+            foreach (var checkedItem in Items) {
+                if (checkedItem.IsIncluded) {
+                    var dbRaffleItem = raffle.RaffleItems.FirstOrDefault(
+                                            i => i.ItemId == checkedItem.ItemId
+                                            && i.RaffleId == SelectedRaffle.RaffleId);
+                    if (dbRaffleItem != null) {
+                        context.Entry(dbRaffleItem).CurrentValues.SetValues(checkedItem);
+                        SelectedRaffle.RaffleItems.First(t => t.ItemId == dbRaffleItem.ItemId).ItemCount = dbRaffleItem.ItemCount;                            
+                    }
+                    else {
+                        RaffleItem raffleItem = new RaffleItem() {
+                            RaffleId = SelectedRaffle.RaffleId,
+                            Raffle = raffle,
+                            ItemId = checkedItem.ItemId,
+                            Item = context.Items.FirstOrDefault(i => i.ItemId == checkedItem.ItemId),
+                            ItemCount = checkedItem.ItemCount
+                        };
+                        SelectedRaffle.RaffleItems.Add(raffleItem);
+                        raffle.RaffleItems.Add(raffleItem);
+                    }
+                }           
             }
         }
-        private void UpdateRaffleParticipants() {
-            using (AppContext context = new AppContext()) {
-                context.Participants.Include(i => i.RaffleParticipants).Load();
-                var raffle = context.Raffles.Include(r => r.RaffleItems)
-                                            .Include(r => r.RaffleParticipants)
-                                            .First(r => r.RaffleId == SelectedRaffle.RaffleId);
+        private void UpdateRaffleParticipants(AppContext context, Raffle raffle) {           
+            foreach (var dbRaffleParticipant in raffle.RaffleParticipants.ToList())
+                if (Participants.Any(p => !p.IsRegistered
+                    && p.ParticipantId == dbRaffleParticipant.ParticipantId)) {
+                    var temp = SelectedRaffle.RaffleParticipants.FirstOrDefault(t => t.ParticipantId == dbRaffleParticipant.ParticipantId);
+                    SelectedRaffle.RaffleParticipants.Remove(temp);
+                    context.RaffleParticipants.Remove(dbRaffleParticipant);
+                }
 
-                foreach (var dbRaffleParticipant in raffle.RaffleParticipants.ToList())
-                    if (Participants.Any(p => !p.IsRegistered
-                      && p.ParticipantId == dbRaffleParticipant.ParticipantId)) {
-                        var temp = SelectedRaffle.RaffleParticipants.FirstOrDefault(t => t.ParticipantId == dbRaffleParticipant.ParticipantId);
-                        SelectedRaffle.RaffleParticipants.Remove(temp);
-                        context.RaffleParticipants.Remove(dbRaffleParticipant);
+            foreach (var checkedParticipant in Participants) {
+                if (checkedParticipant.IsRegistered) {
+                    var dbRaffleParticipant = raffle.RaffleParticipants.FirstOrDefault(
+                                        p => p.ParticipantId == checkedParticipant.ParticipantId
+                                        && p.RaffleId == SelectedRaffle.RaffleId);
+                    if (dbRaffleParticipant != null) {
+                        context.Entry(dbRaffleParticipant).CurrentValues.SetValues(checkedParticipant);
+                        SelectedRaffle.RaffleParticipants.First(p => p.ParticipantId == dbRaffleParticipant.ParticipantId).TicketCount = dbRaffleParticipant.TicketCount;
                     }
-
-                foreach (var checkedParticipant in Participants) {
-                    if (checkedParticipant.IsRegistered) {
-                        var dbRaffleParticipant = raffle.RaffleParticipants.FirstOrDefault(
-                                           p => p.ParticipantId == checkedParticipant.ParticipantId
-                                           && p.RaffleId == SelectedRaffle.RaffleId);
-                        if (dbRaffleParticipant != null) {
-                            context.Entry(dbRaffleParticipant).CurrentValues.SetValues(checkedParticipant);
-                            SelectedRaffle.RaffleParticipants.First(p => p.ParticipantId == dbRaffleParticipant.ParticipantId).TicketCount = dbRaffleParticipant.TicketCount;
-                        }
-                        else {
-                            RaffleParticipant raffleParticipant = new RaffleParticipant() {
-                                RaffleId = SelectedRaffle.RaffleId,
-                                Raffle = raffle,
-                                ParticipantId = checkedParticipant.ParticipantId,
-                                Participant = context.Participants.FirstOrDefault(p => p.ParticipantId == checkedParticipant.ParticipantId),
-                                TicketCount = checkedParticipant.TicketCount
-                            };
-                            SelectedRaffle.RaffleParticipants.Add(raffleParticipant);
-                            raffle.RaffleParticipants.Add(raffleParticipant);
-                        }
+                    else {
+                        RaffleParticipant raffleParticipant = new RaffleParticipant() {
+                            RaffleId = SelectedRaffle.RaffleId,
+                            Raffle = raffle,
+                            ParticipantId = checkedParticipant.ParticipantId,
+                            Participant = context.Participants.FirstOrDefault(p => p.ParticipantId == checkedParticipant.ParticipantId),
+                            TicketCount = checkedParticipant.TicketCount
+                        };
+                        SelectedRaffle.RaffleParticipants.Add(raffleParticipant);
+                        raffle.RaffleParticipants.Add(raffleParticipant);
                     }
                 }
-                context.SaveChanges();
             }
         }
 

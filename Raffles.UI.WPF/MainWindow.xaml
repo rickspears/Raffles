@@ -43,7 +43,9 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Results">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <views:RaffleWinners></views:RaffleWinners>
+                </Grid>
             </TabItem>
         </TabControl>
         

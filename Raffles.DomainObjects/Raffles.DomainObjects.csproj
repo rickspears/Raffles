@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Converters\ConvertCollection.cs" />
+    <Compile Include="Converters\Extensions.cs" />
     <Compile Include="Entities\ContactDetails.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\Raffle.cs" />
@@ -76,7 +77,6 @@
     <Compile Include="Models\WinnerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

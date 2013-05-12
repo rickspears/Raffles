@@ -21,6 +21,8 @@
             RaffleItems =
                 new ObservableCollection<RaffleItem>(
                     entity.RaffleItems);
+            Winners = new ObservableCollection<Winner>(
+                    entity.Winners);
         }
         #endregion
 
@@ -63,12 +65,21 @@
             }
         }
 
-        private ObservableCollection<RaffleItem> raffleItems;
+        private ObservableCollection<RaffleItem> raffleItems;        
         public ObservableCollection<RaffleItem> RaffleItems {
             get { return raffleItems; }
             set {
                 raffleItems = value;
                 OnPropertyChanged("RaffleItems");
+            }
+        }
+
+        private ObservableCollection<Winner> winners;
+        public ObservableCollection<Winner> Winners {
+            get { return winners; }
+            set { 
+                winners = value;
+                OnPropertyChanged("Winners");
             }
         }
         #endregion

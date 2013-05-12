@@ -14,5 +14,6 @@
 
         public ICollection<RaffleItem> RaffleItems { get; set; }
         public ICollection<RaffleParticipant> RaffleParticipants { get; set; }
+        public ICollection<Winner> Winners { get; set; }
     }
 }

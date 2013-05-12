@@ -11,6 +11,6 @@
         public string Sku { get; set; }
 
         public ICollection<RaffleItem> RaffleItems { get; set; }
-        
+        public ICollection<Winner> Winners { get; set; }
     }
 }
