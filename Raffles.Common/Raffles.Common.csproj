@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F58E4CB6-2EEE-45BA-BF92-0C2C7F46B603}</ProjectGuid>
+    <ProjectGuid>{2CF98F77-6DC5-4E91-8DE9-FFB2964C1F04}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Raffles.DomainObjects</RootNamespace>
-    <AssemblyName>Raffles.DomainObjects</AssemblyName>
+    <RootNamespace>Raffles.Common</RootNamespace>
+    <AssemblyName>Raffles.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,22 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PresentationCore" />
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Reactive.Core">
-      <HintPath>..\packages\Rx-Core.2.0.21114\lib\Net45\System.Reactive.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Interfaces">
-      <HintPath>..\packages\Rx-Interfaces.2.0.21114\lib\Net45\System.Reactive.Interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Linq">
-      <HintPath>..\packages\Rx-Linq.2.0.21114\lib\Net45\System.Reactive.Linq.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.PlatformServices">
-      <HintPath>..\packages\Rx-PlatformServices.2.0.21114\lib\Net45\System.Reactive.PlatformServices.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,31 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="Converters\ConvertCollection.cs" />
-    <Compile Include="Converters\Extensions.cs" />
-    <Compile Include="Entities\ContactDetails.cs" />
-    <Compile Include="Entities\Item.cs" />
-    <Compile Include="Entities\Raffle.cs" />
-    <Compile Include="Entities\Participant.cs" />
-    <Compile Include="Entities\RaffleItem.cs" />
-    <Compile Include="Entities\RaffleParticipant.cs" />
-    <Compile Include="Entities\RaffleResult.cs" />
-    <Compile Include="Entities\Winner.cs" />
-    <Compile Include="Events\NotifyPropertyChanged.cs" />
-    <Compile Include="Models\ItemModel.cs" />
-    <Compile Include="Models\ParticipantModel.cs" />
-    <Compile Include="Models\RaffleItemModel.cs" />
-    <Compile Include="Models\RaffleModel.cs" />
-    <Compile Include="Models\RaffleParticipantModel.cs" />
-    <Compile Include="Models\RaffleResultModel.cs" />
-    <Compile Include="Models\WinnerModel.cs" />
-    <Compile Include="RaffleServices\CalculateWinner.cs" />
+    <Compile Include="Comparers\ExtractMax.cs" />
+    <Compile Include="Comparers\ExtractMin.cs" />
+    <Compile Include="DataStructures\PriorityQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RaffleServices\CalculateWinners.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Comparisons\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
