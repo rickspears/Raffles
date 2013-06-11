@@ -97,8 +97,7 @@
         private void IncreaseSize() {
             if (Count >= values.Length)
                 Array.Resize(ref values, values.Length * 4);
-        }
-        
+        }        
         #endregion
     }
 }
