@@ -28,6 +28,11 @@ namespace Raffles.ViewModels.Locator
             get { return manageRafflesViewModel != null ? manageRafflesViewModel : new ManageRafflesViewModel(); }
         }
 
+        private static RafflePlayViewModel rafflePlayViewModel;
+        public static RafflePlayViewModel RafflePlayViewModel {
+            get { return rafflePlayViewModel != null ? rafflePlayViewModel : new RafflePlayViewModel(); }
+        }
+
         private static RaffleWinnersViewModel raffleWinnersViewModel;
         public static RaffleWinnersViewModel RaffleWinnersViewModel {
             get { return raffleWinnersViewModel != null ? raffleWinnersViewModel : new RaffleWinnersViewModel(); }

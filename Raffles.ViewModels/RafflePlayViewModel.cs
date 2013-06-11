@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Raffles.DomainObjects.RaffleServices
+namespace Raffles.ViewModels
 {
-    public class CalculateWinners
+    public class RafflePlayViewModel
     {
+        public RafflePlayViewModel() {
+
+        }
     }
 }

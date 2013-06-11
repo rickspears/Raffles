@@ -18,7 +18,7 @@
         <TabControl>
             <TabItem Header="Raffles">
                 <Grid Background="#FFE5E5E5">
-                    <!--<views:ManageRaffles></views:ManageRaffles>-->
+                    <views:RafflePlay></views:RafflePlay>
                 </Grid>
             </TabItem>
             <TabItem Header="Edit">

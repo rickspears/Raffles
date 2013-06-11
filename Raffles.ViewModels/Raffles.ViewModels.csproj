@@ -52,6 +52,7 @@
     <Compile Include="MainPageViewModel.cs" />
     <Compile Include="ManageParticipantsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RafflePlayViewModel.cs" />
     <Compile Include="RaffleWinnersViewModel.cs" />
     <Compile Include="ManageRafflesViewModel.cs" />
     <Compile Include="ViewModelBase.cs" />

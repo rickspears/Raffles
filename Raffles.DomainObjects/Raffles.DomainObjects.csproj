@@ -72,12 +72,17 @@
     <Compile Include="Models\RaffleParticipantModel.cs" />
     <Compile Include="Models\RaffleResultModel.cs" />
     <Compile Include="Models\WinnerModel.cs" />
-    <Compile Include="RaffleServices\CalculateWinner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RaffleServices\CalculateWinners.cs" />
+    <Compile Include="RaffleServices\RaffleWinners.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Comparisons\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Raffles.Common\Raffles.Common.csproj">
+      <Project>{2cf98f77-6dc5-4e91-8de9-ffb2964c1f04}</Project>
+      <Name>Raffles.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

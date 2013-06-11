@@ -18,9 +18,9 @@ namespace Raffles.UI.WPF.Views
     /// <summary>
     /// Interaction logic for RafflesPlay.xaml
     /// </summary>
-    public partial class RafflesPlay : UserControl
+    public partial class RafflePlay : UserControl
     {
-        public RafflesPlay() {
+        public RafflePlay() {
             InitializeComponent();
         }
     }
