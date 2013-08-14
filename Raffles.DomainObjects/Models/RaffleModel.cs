@@ -14,6 +14,7 @@
             Name = entity.Name;
             Description = entity.Description;
             Location = entity.Location;
+            ExecutionCount = entity.ExecutionCount;
 
             RaffleParticipants = 
                 new ObservableCollection<RaffleParticipant>(
@@ -53,6 +54,15 @@
             set {
                 location = value;
                 OnPropertyChanged("Location");
+            }
+        }
+
+        private int executionCount;
+        public int ExecutionCount {
+            get { return executionCount; }
+            set {
+                executionCount = value;
+                OnPropertyChanged("ExecutionCount");
             }
         }
 
