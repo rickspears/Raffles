@@ -45,15 +45,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppContext.cs" />
-    <Compile Include="EFFactory\RepositoryFactories.cs" />
-    <Compile Include="EFRepository\IRaffleRepository.cs" />
-    <Compile Include="EFRepository\IRepository.cs" />
-    <Compile Include="EFRepository\IWinnerRepository.cs" />
-    <Compile Include="EFRepository\RaffleRepository.cs" />
-    <Compile Include="EFRepository\Repository.cs" />
-    <Compile Include="EFRepository\WinnerRepository.cs" />
-    <Compile Include="EFUnitOfWork\IUnitOfWork.cs" />
-    <Compile Include="EFUnitOfWork\UnitOfWork.cs" />
+    <Compile Include="Configuration\ItemConfiguration.cs" />
+    <Compile Include="Configuration\ParticipantConfiguration.cs" />
+    <Compile Include="Configuration\RaffleConfiguration.cs" />
+    <Compile Include="Configuration\RaffleItemConfiguration.cs" />
+    <Compile Include="Configuration\RaffleParticipantConfiguration.cs" />
+    <Compile Include="Configuration\RaffleResultConfiguration.cs" />
+    <Compile Include="Configuration\WinnerConfiguration.cs" />
+    <Compile Include="Factory\IRepositoryProvider.cs" />
+    <Compile Include="Factory\RepositoryFactories.cs" />
+    <Compile Include="Factory\RepositoryProvider.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\IWinnerRepository.cs" />
+    <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Repository\WinnerRepository.cs" />
+    <Compile Include="UnitOfWork\IUnitOfWork.cs" />
+    <Compile Include="UnitOfWork\UnitOfWork.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

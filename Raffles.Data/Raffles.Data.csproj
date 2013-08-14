@@ -62,16 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\RaffleParticipantConfiguration.cs" />
-    <Compile Include="Configuration\RaffleItemConfiguration.cs" />
-    <Compile Include="Configuration\RaffleResultConfiguration.cs" />
-    <Compile Include="Configuration\ItemConfiguration.cs" />
-    <Compile Include="Configuration\ParticipantConfiguration.cs" />
-    <Compile Include="Configuration\RaffleConfiguration.cs" />
-    <Compile Include="Configuration\WinnerConfiguration.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AppContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -1,7 +1,7 @@
-﻿namespace Raffles.Data
+﻿namespace Raffles.Data.Services
 {
     using System.Data.Entity;
-    using Raffles.Data.Configuration;
+    using Raffles.Data.Services.Configuration;
     using Raffles.DomainObjects.Entities;
 
     public class AppContext : DbContext
@@ -11,7 +11,6 @@
         public DbSet<Raffle> Raffles { get; set; }
         public DbSet<RaffleItem> RaffleItems { get; set; }
         public DbSet<RaffleParticipant> RaffleParticipants { get; set; }
-        //public DbSet<RaffleResult> RaffleResults { get; set; }
         public DbSet<Winner> Winners { get; set; }
 
         public AppContext() : base("DefaultConnection") { }
@@ -24,7 +23,6 @@
             modelBuilder.Configurations.Add(new RaffleConfiguration());
             modelBuilder.Configurations.Add(new RaffleItemConfiguration());
             modelBuilder.Configurations.Add(new RaffleParticipantConfiguration());
-            //modelBuilder.Configurations.Add(new RaffleResultConfiguration());
             modelBuilder.Configurations.Add(new WinnerConfiguration());            
         }
     }
