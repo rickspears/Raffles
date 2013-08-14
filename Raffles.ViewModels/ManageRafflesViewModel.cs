@@ -4,7 +4,7 @@
     using System.Data.Entity;
     using System.Linq;
     using System.Windows.Input;
-    using Raffles.Data;
+    using Raffles.Data.Services;
     using Raffles.DomainObjects.Commands;
     using Raffles.DomainObjects.Converters;
     using Raffles.DomainObjects.Entities;

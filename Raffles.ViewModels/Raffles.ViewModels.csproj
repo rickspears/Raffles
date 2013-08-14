@@ -58,6 +58,10 @@
     <Compile Include="ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Raffles.Data.Services\Raffles.Data.Services.csproj">
+      <Project>{a368297b-1abb-4d10-970e-04ea786c8ed7}</Project>
+      <Name>Raffles.Data.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Raffles.Data\Raffles.Data.csproj">
       <Project>{cead9c99-b71f-469f-b4b8-63fcf33bf767}</Project>
       <Name>Raffles.Data</Name>

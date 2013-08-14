@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Raffles.DomainObjects.Entities;
-
-namespace Raffles.Data.Services.EFRepository
+﻿namespace Raffles.Data.Services.Repository
 {
+    using System;
+    using System.Data.Entity;
+    using System.Linq;
+    using Raffles.DomainObjects.Entities;
+
     public class WinnerRepository : Repository<Winner>, IWinnerRepository
     {
-        public WinnerRepository(DbContext context) :base(context) {
+        #region Constructors
+        public WinnerRepository(DbContext context) :base(context) { }
+        #endregion
 
-        }
+        #region Methods
         public override Winner GetBy(int id){
             throw new InvalidOperationException("Cannot determine a Winner off of an Id");
         }
@@ -37,11 +36,18 @@ namespace Raffles.Data.Services.EFRepository
                                           && w.ParticipantId == ParticipantId
                                           && w.ItemId == ItemId);
         }
+        public Winner GetBy(Winner winner) {
+            return GetBy(winner.RaffleId, winner.RaffleCounter, winner.ParticipantId, winner.ItemId);
+        }
 
         public void Remove(int RaffleId, int RaffleCounter, int ParticipantId, int ItemId) {
             var entity = GetBy(RaffleId, RaffleCounter, ParticipantId, ItemId);
             if (entity == null) return;
             Remove(entity);
         }
+        public void Remove(Winner winner) {
+            Remove(winner.RaffleId, winner.RaffleCounter, winner.ParticipantId, winner.ItemId);
+        }
+        #endregion
     }
 }

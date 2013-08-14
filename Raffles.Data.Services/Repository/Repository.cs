@@ -1,31 +1,34 @@
-﻿namespace Raffles.Data.Services.EFRepository
+﻿namespace Raffles.Data.Services.Repository
 {
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
     using System.Linq.Expressions;
 
     public class Repository<T> : IRepository<T> where T : class
     {
+        #region Constructors
         public Repository(DbContext context) {
             if (context == null)
                 throw new ArgumentNullException("context");
             this.Context = context;
             this.DbSet = Context.Set<T>();
         }
+        #endregion
 
         #region Properties
         protected DbContext Context { get; set; }
         protected DbSet<T> DbSet { get; set; }
         #endregion
 
-        #region methods
-        public IQueryable<T> GetAll() {
+        #region Methods
+        public IEnumerable<T> GetAll() {
             return DbSet;
         }
 
-        public IQueryable<T> GetBy(Expression<Func<T, bool>> predicate) {
-            throw new NotImplementedException();
+        public IEnumerable<T> GetBy(Expression<Func<T, bool>> predicate) {
+            return DbSet.Where(predicate);
         }
 
         public virtual T GetBy(int id) {

@@ -35,6 +35,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.Composition.Registration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -140,6 +142,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Raffles.Data.Services\Raffles.Data.Services.csproj">
+      <Project>{a368297b-1abb-4d10-970e-04ea786c8ed7}</Project>
+      <Name>Raffles.Data.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Raffles.DomainObjects\Raffles.DomainObjects.csproj">
       <Project>{f58e4cb6-2eee-45ba-bf92-0c2c7f46b603}</Project>
       <Name>Raffles.DomainObjects</Name>
