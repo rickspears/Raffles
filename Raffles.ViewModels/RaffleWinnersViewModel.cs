@@ -5,6 +5,7 @@
     using System.Linq;
     using MoreLinq;
     using Raffles.Data.Services;
+    using Raffles.Data.Services.UnitOfWork;
     using Raffles.DomainObjects.Converters;
     using Raffles.DomainObjects.Entities;
     using Raffles.DomainObjects.Events;
@@ -12,42 +13,32 @@
 
     public class RaffleWinnersViewModel : NotifyPropertyChanged
     {
-        public RaffleWinnersViewModel() {
-            using (AppContext context = new AppContext()) {
-                context.Raffles
-                    .Include(r => r.RaffleItems)
-                    .Include(r => r.RaffleParticipants)
-                    .Include(r => r.Winners)
-                    .Load();
-                context.Items
-                    .Include(i => i.RaffleItems)
-                    .Load();
-                context.Participants
-                    .Include(p => p.RaffleParticipants)
-                    .Load();
+        #region Constructors
+        public RaffleWinnersViewModel(IUnitOfWork uow) {
+            this.uow = uow;
 
-                ConvertCollection convert = new ConvertCollection();
-                Raffles = convert.GetRaffleModelFrom(context.Raffles.Local);                
-            }
+            var raffles = uow.Raffles.GetAll()
+                             .Include(r => r.RaffleItems)
+                             .Include(r => r.RaffleParticipants)
+                             .Include(r => r.Winners)
+                             .ToObservableCollection();
+            var convert = new ConvertCollection();
+            Raffles = convert.GetRaffleModelFrom(raffles);
         }
+        #endregion
 
+        #region Fields
+        IUnitOfWork uow;
+        #endregion
+
+        #region Properties
         private RaffleModel selectedRaffle;
         public RaffleModel SelectedRaffle {
             get { return selectedRaffle; }
             set { 
                 selectedRaffle = value;
                 OnPropertyChanged("SelectedRaffle");
-                //DistinctCounters = selectedRaffle.Winners
-                //    .GroupBy(i=>i.RaffleCounter)
-                //    .Select(w => w.Key)
-                //    .ToObservableCollection();
-                DistinctCounters = null;
-                DistinctCounter = 0;
-                DistinctCounters = selectedRaffle.Winners
-                    .DistinctBy(w => w.RaffleCounter)
-                    .Select(w => w.RaffleCounter)
-                    .ToObservableCollection();
-                
+                GetSelectedRaffleDistinctExecutions();                
             }
         }
 
@@ -66,16 +57,7 @@
             set { 
                 distinctCounter = value;
                 OnPropertyChanged("DistinctCounter");
-
-                Winners = SelectedRaffle.Winners
-                    .Where(w => w.RaffleId == SelectedRaffle.RaffleId
-                        && w.RaffleCounter == distinctCounter)
-                    .Select(w => new Winner {  Raffle = w.Raffle, 
-                                               Participant = w.Participant, 
-                                               Item = w.Item, 
-                                               Claimed = w.Claimed })
-                    .ToObservableCollection();
-                    
+                GetSelectedRaffleWinners();
             }
         }
 
@@ -96,10 +78,26 @@
                 OnPropertyChanged("Winners");
             }
         }
+        #endregion
 
         #region Helper Methods
-        
-        #endregion
-        
+        // We need to get the distinct executions for the raffle... e.g.,  1 thru 10
+        private void GetSelectedRaffleDistinctExecutions() {
+            DistinctCounters = null;
+            DistinctCounter = 0;
+            DistinctCounters = selectedRaffle.Winners
+                .DistinctBy(w => w.RaffleCounter)
+                .Select(w => w.RaffleCounter)
+                .ToObservableCollection();
+        }
+
+        private void GetSelectedRaffleWinners() {
+            Winners = uow.Winners.GetByRaffle(SelectedRaffle.RaffleId)
+                .Where(w => w.RaffleCounter == distinctCounter)
+                .Include(w => w.Participant)
+                .Include(w => w.Item)
+                .ToObservableCollection();
+        }
+        #endregion        
     }
 }
