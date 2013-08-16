@@ -23,11 +23,11 @@
         #endregion
 
         #region Methods
-        public IEnumerable<T> GetAll() {
+        public IQueryable<T> GetAll() {
             return DbSet;
         }
 
-        public IEnumerable<T> GetBy(Expression<Func<T, bool>> predicate) {
+        public IQueryable<T> GetBy(Expression<Func<T, bool>> predicate) {
             return DbSet.Where(predicate);
         }
 

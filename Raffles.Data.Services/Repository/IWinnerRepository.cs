@@ -12,7 +12,7 @@
         Winner GetBy(int RaffleId, int RaffleCounter, int ItemId, int ParticipantId);
         Winner GetBy(Winner winner);
 
-        void Remove(int RaffleId, int RaffleCounter, int ItemId, int ParticipantId);
-        void Remove(Winner winner);
+        void RemoveWinner(int RaffleId, int RaffleCounter, int ItemId, int ParticipantId);
+        void RemoveWinner(Winner winner);
     }
 }

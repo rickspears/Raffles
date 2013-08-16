@@ -7,8 +7,8 @@
 
     public interface IRepository<T> where T : class  
     {
-        IEnumerable<T> GetAll();
-        IEnumerable<T> GetBy(Expression<Func<T, bool>> predicate);
+        IQueryable<T> GetAll();
+        IQueryable<T> GetBy(Expression<Func<T, bool>> predicate);
         T GetBy(int id);
         void Add(T entity);
         void Remove(T entity);

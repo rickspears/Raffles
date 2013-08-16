@@ -40,13 +40,13 @@
             return GetBy(winner.RaffleId, winner.RaffleCounter, winner.ParticipantId, winner.ItemId);
         }
 
-        public void Remove(int RaffleId, int RaffleCounter, int ParticipantId, int ItemId) {
+        public void RemoveWinner(int RaffleId, int RaffleCounter, int ParticipantId, int ItemId) {
             var entity = GetBy(RaffleId, RaffleCounter, ParticipantId, ItemId);
             if (entity == null) return;
             Remove(entity);
         }
-        public void Remove(Winner winner) {
-            Remove(winner.RaffleId, winner.RaffleCounter, winner.ParticipantId, winner.ItemId);
+        public void RemoveWinner(Winner winner) {
+            RemoveWinner(winner.RaffleId, winner.RaffleCounter, winner.ParticipantId, winner.ItemId);
         }
         #endregion
     }
