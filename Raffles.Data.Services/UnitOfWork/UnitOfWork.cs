@@ -54,8 +54,7 @@
         private T GetRepository<T>() where T : class {
             return RepositoryProvider.GetRepository<T>();
         }
-
-        #endregion       
+        #endregion
 
         #region IDisposable
         public void Dispose() {
