@@ -22,8 +22,9 @@
             RaffleItems =
                 new ObservableCollection<RaffleItem>(
                     entity.RaffleItems);
-            Winners = new ObservableCollection<Winner>(
-                    entity.Winners);
+            Winners = entity.Winners != null
+                ? new ObservableCollection<Winner>(entity.Winners) 
+                : new ObservableCollection<Winner>();
         }
         #endregion
 

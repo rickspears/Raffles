@@ -45,7 +45,7 @@ namespace Raffles.ViewModels.Locator
         public static ManageRafflesViewModel ManageRafflesViewModel {
             get {
                 if (manageRafflesViewModel == null)
-                    manageRafflesViewModel = new ManageRafflesViewModel();
+                    manageRafflesViewModel = new ManageRafflesViewModel(uow);
                 return manageRafflesViewModel;
             }
         }
